@@ -1,49 +1,24 @@
-import cgi
-import datetime
+#!/usr/bin/env python3
 
-form = cgi.FieldStorage()
+import sys
+import math
+from datetime import datetime
 
-try:
-    a = float(form.getvalue("a"))
-    b = float(form.getvalue("b"))
-    c = float(form.getvalue("c"))
+# Capture input arguments from the command line
+a = float(sys.argv[1])
+b = float(sys.argv[2])
+c = float(sys.argv[3])
 
-    steps = []
+# Step-by-step calculations
+c_cubed = c ** 3                         # Step 1: c raised to the power of 3
+sqrt_cubed = c_cubed ** 0.5              # Step 2: square root of c³
+division = sqrt_cubed / a                # Step 3: divide the square root by a
+multiplied = division * 10               # Step 4: multiply the result by 10
+result = multiplied + b                  # Step 5: add b to the previous result
 
-    c_cubed = c ** 3
-    steps.append(f"Step 1: c^3 = {c}^3 = {c_cubed}")
+# Get current date and time
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    sqrt_val = c_cubed ** 0.5
-    steps.append(f"Step 2: sqrt(c^3) = sqrt({c_cubed}) = {sqrt_val}")
-
-    div_result = sqrt_val / a
-    steps.append(f"Step 3: {sqrt_val} / {a} = {div_result}")
-
-    mult_result = div_result * 10
-    steps.append(f"Step 4: {div_result} * 10 = {mult_result}")
-
-    result = b + mult_result
-    steps.append(f"Step 5: {b} + {mult_result} = {result}")
-
-    print("Content-type: text/html\n")
-    print("<html><body>")
-    print("<pre>")
-    print("====================================")
-    print("Assignment #2")
-    print("Your_Lastname")
-    print()
-    print(f"Final Result: {result}")
-    print()
-    for s in steps:
-        print(s)
-    print()
-    print(f"Calculation completed at {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("====================================")
-    print("</pre>")
-    print("</body></html>")
-
-except Exception as e:
-    print("Content-type: text/html\n")
-    print(f"<h1>Error: {e}</h1>")
-
-
+# Output formatted as HTML
+print("Content-type: text/html\n")
+print(f"{result:.1f}")
